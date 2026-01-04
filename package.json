@@ -1,0 +1,26 @@
+{
+    "name": "testing-practice",
+    "version": "1.0.0",
+    "description": "",
+    "homepage": "https://github.com/javgiu/testing-practice#readme",
+    "bugs": {
+        "url": "https://github.com/javgiu/testing-practice/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/javgiu/testing-practice.git"
+    },
+    "license": "ISC",
+    "author": "",
+    "type": "commonjs",
+    "main": "index.js",
+    "scripts": {
+        "test": "jest --verbose --watch"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.28.5",
+        "@babel/preset-env": "^7.28.5",
+        "babel-jest": "^30.2.0",
+        "jest": "^30.2.0"
+    }
+}
