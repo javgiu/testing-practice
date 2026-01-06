@@ -1,4 +1,9 @@
-import { capitalize, reverseString, calculator } from "../index.js";
+import {
+    capitalize,
+    reverseString,
+    calculator,
+    caesarCipher,
+} from "../index.js";
 
 describe("capitalize function", () => {
     test("capitalize javier", () => {
@@ -48,6 +53,50 @@ describe("calculator", () => {
 
         test("divide by 0 return undefined", () => {
             expect(calculator.divide(a, 0)).toBeUndefined();
+        });
+    });
+});
+
+describe("Caesar Cipher function", () => {
+    describe("Works with single characters", () => {
+        test("Encrypt a simple letter with factor 1", () => {
+            expect(caesarCipher("a", 1)).toBe("b");
+            expect(caesarCipher("b", 1)).toBe("c");
+        });
+        test("Encrypt z to go back to previous letters", () => {
+            expect(caesarCipher("z", 1)).toBe("a");
+            expect(caesarCipher("z", 5)).toBe("e");
+        });
+        test("Encrypt different letter to go back to previous letters", () => {
+            expect(caesarCipher("x", 5)).toBe("c");
+            expect(caesarCipher("w", 8)).toBe("e");
+        });
+        test("Encrypt with factors higher than 25", () => {
+            expect(caesarCipher("a", 50)).toBe("y");
+            expect(caesarCipher("w", 80)).toBe("y");
+        });
+        test("Works with upper cases", () => {
+            expect(caesarCipher("A", 50)).toBe("Y");
+            expect(caesarCipher("W", 80)).toBe("Y");
+            expect(caesarCipher("X", 5)).toBe("C");
+            expect(caesarCipher("W", 8)).toBe("E");
+        });
+        test("Return the same character if is not a letter", () => {
+            expect(caesarCipher(".", 2)).toBe(".");
+            expect(caesarCipher(" ", 2)).toBe(" ");
+        });
+    });
+    describe("Works with words and sentences", () => {
+        test("Encrypt a simple word", () => {
+            expect(caesarCipher("word", 5)).toBe("btwi");
+        });
+        test("Encrypt a word with punctuation", () => {
+            expect(caesarCipher("wo.rd!", 5)).toBe("bt.wi!");
+        });
+        test("Encrypt a sentence which use punctuation", () => {
+            expect(caesarCipher("My mom loves me, so MUCH!", 10)).toBe(
+                "Wi wyw vyfoc wo, cy WEMR!"
+            );
         });
     });
 });
