@@ -49,10 +49,30 @@ export function caesarCipher(string, factor) {
 }
 
 export function analyzeArray(array) {
+    if (array.length === 0) throw new Error("Array is empty");
+
+    let sum = 0;
+    let max = array[0];
+    let min = array[0];
+
+    for (let i = 0; i < array.length; i++) {
+        const num = array[i];
+        sum += num;
+        if (num < min) min = num;
+        if (num > max) max = num;
+    }
+
     return {
         length: array.length,
-        average: array.reduce((current, next) => current + next) / array.length,
-        max: array.reduce((current, next) => (current > next ? current : next)),
-        min: array.reduce((current, next) => (current < next ? current : next)),
+        average: sum / array.length,
+        min,
+        max,
     };
+    // // My first approach, time complexity O(3n), now o(n)
+    // return {
+    //     length: array.length,
+    //     average: array.reduce((current, next) => current + next) / array.length,
+    //     max: array.reduce((current, next) => (current > next ? current : next)),
+    //     min: array.reduce((current, next) => (current < next ? current : next)),
+    // };
 }

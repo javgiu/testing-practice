@@ -103,6 +103,11 @@ describe("Caesar Cipher function", () => {
 });
 
 describe("Analyze Array function", () => {
+    test("Throw an error if array is empty", () => {
+        expect(() => {
+            analyzeArray([]);
+        }).toThrow("Array is empty");
+    });
     test("returns an object with the array length", () => {
         expect(analyzeArray([1])).toMatchObject({ length: 1 });
         expect(analyzeArray([1, 2])).toMatchObject({ length: 2 });
