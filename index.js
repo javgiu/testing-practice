@@ -47,3 +47,12 @@ export function caesarCipher(string, factor) {
         })
         .join("");
 }
+
+export function analyzeArray(array) {
+    return {
+        length: array.length,
+        average: array.reduce((current, next) => current + next) / array.length,
+        max: array.reduce((current, next) => (current > next ? current : next)),
+        min: array.reduce((current, next) => (current < next ? current : next)),
+    };
+}
