@@ -21,56 +21,29 @@ export const calculator = {
 
 export function caesarCipher(string, factor) {
     if (factor === 0) return string;
-    const arrayFromString = string.split("");
-    const finalArray = [];
-    const newFactor = factor % 26;
+    const normalizedFactor = ((factor % 26) + 26) % 26;
 
-    arrayFromString.forEach((letter) => {
-        if (!isLetter(letter)) {
-            finalArray.push(letter);
-        } else {
-            const charCode = letter.charCodeAt(0);
-            let newCharCode = charCode + newFactor;
-            if (isLowerCase(letter) && newCharCode > 122) {
-                newCharCode = 97 + (newCharCode % 123);
+    return string
+        .split("")
+        .map((char) => {
+            const code = char.charCodeAt(0);
+
+            // Lower cases (a-z: 97-122)
+            if (code >= 97 && code <= 122) {
+                return String.fromCharCode(
+                    ((code - 97 + normalizedFactor) % 26) + 97
+                );
             }
-            if (isUpperCase(letter) && newCharCode > 90) {
-                newCharCode = 65 + (newCharCode % 91);
+
+            // Upper cases (A-Z: 65-90)
+            if (code >= 65 && code <= 90) {
+                return String.fromCharCode(
+                    ((code - 65 + normalizedFactor) % 26) + 65
+                );
             }
-            const newLetter = String.fromCharCode(newCharCode);
-            finalArray.push(newLetter);
-        }
-    });
-    return finalArray.join("");
 
-    function isLowerCase(letter) {
-        // Reg expression
-        return /[a-z]/.test(letter);
-
-        // // if statement
-        // if (letter >= "a" && letter <= "z") return true;
-        // return false;
-
-        // // using char code
-        // const code = letter.charCodeAt(0);
-        // if (code >= 97 && code <= 122) return true;
-        // return false;
-    }
-    function isUpperCase(letter) {
-        // Reg expression
-        return /[A-Z]/.test(letter);
-
-        // // if statement
-        // if (letter >= "A" && letter <= "Z") return true;
-        // return false;
-
-        // // using char code
-        // const code = letter.charCodeAt(0);
-        // if (code >= 65 && code <= 90) return true;
-        // return false;
-    }
-
-    function isLetter(letter) {
-        return /[a-z]/.test(letter) || /[A-Z]/.test(letter);
-    }
+            // Is not a letter
+            return char;
+        })
+        .join("");
 }
